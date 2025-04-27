@@ -40,5 +40,7 @@ venv/
 *.env
 
 # Local config folder
-/config
+#/config
 
+/prometa-ui
+/prometa-async-logging-service

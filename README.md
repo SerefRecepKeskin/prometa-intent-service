@@ -11,6 +11,8 @@ Bu proje, müşteri ve temsilci arasındaki konuşmaları analiz eden bir API sa
 
 ## Kurulum
 
+### Yerel Kurulum
+
 1. Projeyi klonlayın:
    ```bash
    git clone <repository-url>
@@ -25,6 +27,37 @@ Bu proje, müşteri ve temsilci arasındaki konuşmaları analiz eden bir API sa
 3. Servisi başlatın:
    ```bash
    python api.py
+   ```
+
+### Docker ile Kurulum (Önerilen)
+
+Bu proje, prometa-ui ve prometa-async-logging-service ile birlikte Docker Compose kullanarak çalıştırılabilir.
+
+1. Gerekli diğer servis repoları için setup betiğini çalıştırın:
+   ```bash
+   chmod +x setup.sh
+   ./setup.sh
+   ```
+
+2. Docker Compose ile tüm servisleri başlatın:
+   ```bash
+   docker-compose up -d
+   ```
+
+3. Servislere aşağıdaki adreslerden erişebilirsiniz:
+   - UI: http://localhost:8501
+   - Intent Service: http://localhost:7002
+   - Logging Service: http://localhost:8001
+   - PostgreSQL: localhost:5432
+
+4. Servisleri durdurmak için:
+   ```bash
+   docker-compose down
+   ```
+
+5. Tüm container ve volumeleri kaldırmak için:
+   ```bash
+   docker-compose down -v
    ```
 
 ## Kullanım
