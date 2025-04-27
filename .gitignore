@@ -40,5 +40,5 @@ venv/
 *.env
 
 # Local config folder
-#/config
+/config
 
