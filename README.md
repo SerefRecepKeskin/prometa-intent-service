@@ -11,6 +11,26 @@ Bu proje, müşteri ve temsilci arasındaki konuşmaları analiz eden bir API sa
 
 ## Kurulum
 
+### Hızlı Başlangıç (Önerilen)
+
+1. Gerekli tüm projeleri klonlayın:
+   ```bash
+   git clone https://github.com/SerefRecepKeskin/prometa-intent-service
+   git clone https://github.com/SerefRecepKeskin/prometa-async-logging-service
+   git clone https://github.com/SerefRecepKeskin/prometa-ui
+   ```
+
+2. Intent Service dizinine gidin ve Docker Compose ile tüm servisleri başlatın:
+   ```bash
+   cd prometa-intent-service
+   docker-compose up --build
+   ```
+  3. Servislere aşağıdaki adreslerden erişebilirsiniz:
+    - UI: http://localhost:8501 veya http://promta-ui:8501
+    - Intent Service: http://localhost:7002 veya http://intent-service:7002
+    - Logging Service: http://localhost:8001 veya http://async-logging-service:8001
+    - PostgreSQL: localhost:5432
+
 ### Yerel Kurulum
 
 1. Projeyi klonlayın:
@@ -29,7 +49,7 @@ Bu proje, müşteri ve temsilci arasındaki konuşmaları analiz eden bir API sa
    python api.py
    ```
 
-### Docker ile Kurulum (Önerilen)
+### Docker ile Manuel Kurulum
 
 Bu proje, prometa-ui ve prometa-async-logging-service ile birlikte Docker Compose kullanarak çalıştırılabilir.
 
@@ -44,18 +64,12 @@ Bu proje, prometa-ui ve prometa-async-logging-service ile birlikte Docker Compos
    docker-compose up -d
    ```
 
-3. Servislere aşağıdaki adreslerden erişebilirsiniz:
-   - UI: http://localhost:8501
-   - Intent Service: http://localhost:7002
-   - Logging Service: http://localhost:8001
-   - PostgreSQL: localhost:5432
-
-4. Servisleri durdurmak için:
+3. Servisleri durdurmak için:
    ```bash
    docker-compose down
    ```
 
-5. Tüm container ve volumeleri kaldırmak için:
+4. Tüm container ve volumeleri kaldırmak için:
    ```bash
    docker-compose down -v
    ```
@@ -104,8 +118,6 @@ Bu proje, prometa-ui ve prometa-async-logging-service ile birlikte Docker Compos
   ]
 }
 ```
-
-
 
 ## Proje Yapısı
 
