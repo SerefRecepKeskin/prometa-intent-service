@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres_db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: logdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - prometa-network
+
+  async-logging-service:
+    build:
+      context: ../prometa-async-logging-service
+    image: async-logging-service
+    pull_policy: never
+    container_name: async-logging-service
+    ports:
+      - "8001:8001"
+    volumes:
+      - type: bind
+        source: ${PWD}/../prometa-async-logging-service/config
+        target: /app/config
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - prometa-network
+
+  intent-service:
+    build:
+      context: .
+    image: intent-service
+    pull_policy: never
+    container_name: intent-service
+    ports:
+      - "7002:7002"
+    volumes:
+      - ./config:/app/config
+    depends_on:
+      - async-logging-service
+    restart: unless-stopped
+    networks:
+      - prometa-network
+
+  prometa-ui:
+    build:
+      context: ../prometa-ui
+    image: prometa-ui
+    pull_policy: never
+    container_name: prometa-ui
+    ports:
+      - "8501:8501"
+    volumes:
+      - type: bind
+        source: ${PWD}/../prometa-ui/config
+        target: /app/config
+    depends_on:
+      - intent-service
+    restart: unless-stopped
+    networks:
+      - prometa-network
+
+networks:
+  prometa-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
