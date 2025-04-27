@@ -10,5 +10,5 @@
         "max_tokens": 8192
     },
     "logging_service_url":"http://localhost:8001",
-    "ui_url":"http://localhost:8002"
+    "ui_url":"http://localhost:8501"
 }
