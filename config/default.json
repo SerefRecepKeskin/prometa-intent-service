@@ -1,6 +1,6 @@
 { 
     "app": {
-      "port": 7000,
+      "port": 7002,
       "version": "v1",
       "api_key": "temp_secret123"
     },

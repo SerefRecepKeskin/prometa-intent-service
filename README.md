@@ -87,7 +87,7 @@ Bu proje, müşteri ve temsilci arasındaki konuşmaları analiz eden bir API sa
 ```json
 { 
     "app": {
-      "port": 7000,
+      "port": 7002,
       "version": "v1",
       "api_key": "temp_secret123"
     },
@@ -104,7 +104,7 @@ Bu proje, müşteri ve temsilci arasındaki konuşmaları analiz eden bir API sa
 #### Konfigürasyon Açıklamaları
 
 - **app**: Uygulama ayarları
-  - **port**: API'nin çalışacağı port numarası (7000)
+  - **port**: API'nin çalışacağı port numarası (7002)
   - **version**: API sürüm numarası (v1)
   - **api_key**: API güvenlik anahtarı, istemcilerin API'ye erişimini doğrulamak için kullanılır
 

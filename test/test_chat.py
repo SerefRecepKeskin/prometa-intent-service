@@ -26,7 +26,7 @@ SAMPLE_CONVERSATION = {
 if __name__ == "__main__":
     # Simple script to send a request to the endpoint
     response = requests.post(
-        "http://localhost:7000/api/v1/chat/analyze",
+        "http://localhost:7002/api/v1/chat/analyze",
         json=SAMPLE_CONVERSATION,
         headers={
             "x-api-key": "temp_secret123",
@@ -34,5 +34,16 @@ if __name__ == "__main__":
         }
     )
 
-    print(response.status_code)
-    print(response.json())
+    print(f"Status code: {response.status_code}")
+    print(f"Response headers: {response.headers}")
+    print(f"Raw response text: {response.text}")
+    
+    # Add error handling for JSON parsing
+    try:
+        json_response = response.json()
+        print("JSON Response:", json_response)
+    except requests.exceptions.JSONDecodeError as e:
+        print(f"Error decoding JSON: {e}")
+        # The response is not valid JSON, which might indicate a server error
+        if response.status_code != 200:
+            print(f"Server returned error status: {response.status_code}")

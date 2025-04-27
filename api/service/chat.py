@@ -6,7 +6,7 @@ from api.exception import ChatResponseError
 from api.schema import Message, MessageResult, AnalysisItem
 from chatbot.worker import ChatbotWorker
 from util import logger
-from util.config import config  
+from config import config  
 
 
 class ChatService:
@@ -76,19 +76,17 @@ class ChatService:
 
         :param messages: The list of messages in the conversation
         :param bot_message: The bot's response to the user
-        :param message_id: The unique identifier for the message
         :param session_identifier: The session identifier for logging purposes
         :param analysis: The analysis items generated for the conversation
         """
         try:
-            # Create log payload    
+            # Create simplified log payload
             log_data = {
-                "messages": [{"role": msg.role, "message": msg.message} for msg in messages],
-                "bot_message": bot_message,
                 "session_id": str(session_identifier),
+                "analysis": []
             }
             
-            # Add analysis if available
+            # Add analysis items to payload
             if analysis:
                 log_data["analysis"] = [
                     {
@@ -100,9 +98,15 @@ class ChatService:
                 ]
                 
             async with httpx.AsyncClient(timeout=5.0) as client:
-                await client.post(
-                    url=f"{config.logging_service_url}/log",
+                response = await client.post(
+                    url=f"{config.logging_service_url}/api/v1/log/save",
                     json=log_data
                 )
+                response.raise_for_status()
+                logger.info(f"Message successfully logged, status code: {response.status_code}")
+        except httpx.HTTPStatusError as status_err:
+            logger.warning(f"HTTP error while logging message: {status_err.response.status_code}")
+        except httpx.RequestError as req_ex:
+            logger.warning(f"Request error while logging message: {req_ex}")
         except Exception as log_ex:
             logger.warning('Failed to log message asynchronously: %s', log_ex)

@@ -33,7 +33,7 @@ venv/
 # Excel files
 *.xls
 *.xlsx
-
+*.json
 # Local test files
 /local_test
 
