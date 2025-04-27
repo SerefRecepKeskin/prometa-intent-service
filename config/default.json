@@ -1,0 +1,14 @@
+{ 
+    "app": {
+      "port": 7000,
+      "version": "v1",
+      "api_key": "temp_secret123"
+    },
+    "gemini": {
+        "api_key": "your_api_key",
+        "model": "gemini-2.0-flash",
+        "max_tokens": 8192
+    },
+    "logging_service_url":"http://localhost:8001",
+    "ui_url":"http://localhost:8002"
+}
